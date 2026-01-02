@@ -1,0 +1,8 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://alinafeckamwendo.vercel.app
+# Sitemaps
+Sitemap: https://alinafeckamwendo.vercel.app/sitemap.xml
