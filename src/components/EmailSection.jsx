@@ -14,6 +14,7 @@ const EmailSection = () => {
       email: e.target.email.value,
       subject: e.target.subject.value,
       message: e.target.message.value,
+      fullName: e.target.fullName.value,
     };
     const JSONdata = JSON.stringify(data);
     const endpoint = "/api/send";
@@ -53,13 +54,26 @@ const EmailSection = () => {
           {" "}
           I&apos;m currently looking for new opportunities, my inbox is always
           open. Whether you have a question or just want to say hi, I&apos;ll
-          try my best to get back to you!
+          try my best to get back to you as soon as possible!
         </p>
+        <div className="text-[#ADB7BE] mb-4 max-w-md">
+          <p>
+            Emails: <span className="text-green-500">kamwendoalina@gmail.com</span>, <span className="text-orange-400">alinafekamwendo11@gmail.com</span>
+          </p>
+          <p>
+            Address: <span className="text-green-500">P.O Box 31808
+Lilongwe 3</span>
+          </p>
+          <p>
+            {" "}
+            Phone: <span className="text-gray-100 font-semibold">+265 993 925 060</span>
+         </p>
+        </div>
         <div className="socials flex flex-row gap-2">
-          <Link href="github.com">
+          <Link href="https://github.com/alinafekamwendo">
             <Image src={GithubIcon} alt="Github Icon" />
           </Link>
-          <Link href="linkedin.com">
+          <Link href="https://mw.linkedin.com/in/alinafe-kamwendo-568585197">
             <Image src={LinkedinIcon} alt="Linkedin Icon" />
           </Link>
         </div>
@@ -71,7 +85,21 @@ const EmailSection = () => {
           </p>
         ) : (
           <form className="flex flex-col" onSubmit={handleSubmit}>
-            <div className="mb-6">
+              <div className="mb-6">
+                <label
+                htmlFor="fullName"
+                className="text-white block mb-2 text-sm font-medium"
+              >
+                Your full name
+                </label>
+                <input
+                name="fullName"
+                type="text"
+                id="fullName"
+                required
+                className="bg-[#18191E] border border-[#33353F] placeholder-[#9CA2A9] text-gray-100 text-sm rounded-lg block w-full p-2.5"
+                placeholder="joe doe"
+              />
               <label
                 htmlFor="email"
                 className="text-white block mb-2 text-sm font-medium"
