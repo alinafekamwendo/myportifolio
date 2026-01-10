@@ -34,7 +34,7 @@ const Navbar = () => {
     </Link>
     
     {/* Mobile menu button */}
-    <div className="block md:hidden ml-4">
+    <div className="block md:hidden ml-4 mr-4">
       {!navbarOpen ? (
         <button
           onClick={() => setNavbarOpen(true)}
