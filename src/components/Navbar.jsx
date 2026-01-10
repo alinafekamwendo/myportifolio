@@ -24,7 +24,7 @@ const Navbar = () => {
   const [navbarOpen, setNavbarOpen] = useState(false);
 
   return (
- <nav className="fixed max-w-screen mx-auto border  border-[#33353F] top-0 left-0 right-0 z-50 bg-zinc-900 ">
+ <nav className="fixed w-full mx-auto border  border-[#33353F] top-0 left-0 right-0 z-50 bg-zinc-900 ">
   <div className="flex flex-wrap items-center justify-between mx-auto px-4 py-2 sm:px-6 lg:px-8">
     <Link
       href={"/"}
