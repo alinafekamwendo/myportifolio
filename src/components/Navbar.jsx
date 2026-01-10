@@ -24,43 +24,49 @@ const Navbar = () => {
   const [navbarOpen, setNavbarOpen] = useState(false);
 
   return (
-    <nav className="fixed mx-auto border border-[#33353F] top-0 left-0 right-0 z-10 bg-zinc-900 bg-opacity-100">
-      <div className="flex container lg:py-4 flex-wrap items-center justify-between mx-auto px-4 py-2">
-        <Link
-          href={"/"}
-          className="text-xl md:text-3xl text-white font-semibold"
+ <nav className="fixed w-full mx-auto border border-[#33353F] top-0 left-0 right-0 z-50 bg-zinc-900 bg-opacity-100">
+  <div className="flex flex-wrap items-center justify-between mx-auto px-4 py-2 sm:px-6 lg:px-8">
+    <Link
+      href={"/"}
+      className="text-lg sm:text-xl md:text-3xl text-white font-semibold truncate max-w-[200px] sm:max-w-none"
+    >
+      ALINAFE KAMWENDO 
+    </Link>
+    
+    {/* Mobile menu button */}
+    <div className="block md:hidden ml-4">
+      {!navbarOpen ? (
+        <button
+          onClick={() => setNavbarOpen(true)}
+          className="flex items-center justify-center w-10 h-10 px-3 py-2 border rounded border-slate-200 text-slate-200 hover:text-white hover:border-white"
+          aria-label="Open menu"
         >
-          ALINAFE KAMWENDO 
-        </Link>
-        <div className="mobile-menu block md:hidden">
-          {!navbarOpen ? (
-            <button
-              onClick={() => setNavbarOpen(true)}
-              className="flex items-center px-3 py-2 border rounded border-slate-200 text-slate-200 hover:text-white hover:border-white"
-            >
-              <Bars3Icon className="h-5 w-5" />
-            </button>
-          ) : (
-            <button
-              onClick={() => setNavbarOpen(false)}
-              className="flex items-center px-3 py-2 border rounded border-slate-200 text-slate-200 hover:text-white hover:border-white"
-            >
-              <XMarkIcon className="h-5 w-5" />
-            </button>
-          )}
-        </div>
-        <div className="menu hidden md:block md:w-auto" id="navbar">
-          <ul className="flex p-4 md:p-0 md:flex-row md:space-x-8 mt-0 mr-4">
-            {navLinks.map((link, index) => (
-              <li key={index}>
-                <NavLink href={link.path} title={link.title} />
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-      {navbarOpen ? <MenuOverlay links={navLinks} /> : null}
-    </nav>
+          <Bars3Icon className="h-5 w-5" />
+        </button>
+      ) : (
+        <button
+          onClick={() => setNavbarOpen(false)}
+          className="flex items-center justify-center w-10 h-10 px-3 py-2 border rounded border-slate-200 text-slate-200 hover:text-white hover:border-white"
+          aria-label="Close menu"
+        >
+          <XMarkIcon className="h-5 w-5" />
+        </button>
+      )}
+    </div>
+    
+    {/* Desktop menu */}
+    <div className="menu hidden md:block md:w-auto" id="navbar">
+      <ul className="flex p-4 md:p-0 md:flex-row md:space-x-8 mt-0">
+        {navLinks.map((link, index) => (
+          <li key={index}>
+            <NavLink href={link.path} title={link.title} />
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+  {navbarOpen ? <MenuOverlay links={navLinks} /> : null}
+</nav>
   );
 };
 

@@ -25,3 +25,48 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+
+
+/* Ensure mobile menu is visible and properly positioned */
+.mobile-menu {
+  position: relative;
+  z-index: 9999;
+}
+
+/* Fix for very small screens */
+@media (max-width: 640px) {
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  /* Ensure navbar has enough space */
+  nav {
+    padding: 0.5rem 0;
+  }
+
+  /* Make sure the mobile menu button is always visible */
+  .mobile-menu button {
+    min-width: 44px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+/* For extremely small screens */
+@media (max-width: 375px) {
+  .container {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+
+  /* Adjust navbar spacing */
+  .flex.container {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+
+ 
+}
