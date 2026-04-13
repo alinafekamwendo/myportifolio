@@ -65,7 +65,7 @@ const Footer = () => {
             © {currentYear} Alinafe Kamwendo. All rights reserved.
           </p>
           <p className={`text-sm ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
-            Crafted with modern web technologies
+            Designed and Developed by Alinafe Kamwendo
           </p>
         </div>
       </div>

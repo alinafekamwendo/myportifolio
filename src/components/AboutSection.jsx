@@ -40,8 +40,8 @@ const experienceData = [
 ];
 
 const educationData = [
-  { degree: "B.Ed Computer Science", institution: "University of Malawi", year: "2016" },
-  { degree: "Diploma in Cybersecurity", institution: "Alison Online Learning", year: "2022" },
+  { degree: "B.Ed Computer Science", institution: "University of Malawi", year: "2022" },
+  { degree: "Diploma in Cybersecurity", institution: "Alison Online Learning", year: "2021" },
 ];
 
 const certificationsData = [
