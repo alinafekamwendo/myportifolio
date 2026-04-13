@@ -3,70 +3,62 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 15, 23, 42;
+  --background-end-rgb: 2, 6, 23;
 }
 
 body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+    to bottom,
+    rgb(var(--background-start-rgb)),
+    rgb(var(--background-end-rgb))
+  );
+  min-height: 100vh;
 }
 
-
-/* Ensure mobile menu is visible and properly positioned */
-.mobile-menu {
-  position: relative;
-  z-index: 9999;
+html {
+  scroll-behavior: smooth;
 }
 
-/* Fix for very small screens */
-@media (max-width: 640px) {
-  .container {
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
-
-  /* Ensure navbar has enough space */
-  nav {
-    padding: 0.5rem 0;
-  }
-
-  /* Make sure the mobile menu button is always visible */
-  .mobile-menu button {
-    min-width: 44px;
-    min-height: 44px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
   }
 }
 
-/* For extremely small screens */
-@media (max-width: 375px) {
-  .container {
-    padding-left: 0.75rem;
-    padding-right: 0.75rem;
-  }
+::-webkit-scrollbar {
+  width: 10px;
+}
 
-  /* Adjust navbar spacing */
-  .flex.container {
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
-  }
+::-webkit-scrollbar-track {
+  background: #0f172a;
+}
 
- 
+::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #475569;
+}
+
+::selection {
+  background: #6366f1;
+  color: white;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
 }

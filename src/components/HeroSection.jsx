@@ -1,87 +1,80 @@
 "use client";
 import React from "react";
 import Image from "next/image";
-import { TypeAnimation } from "react-type-animation";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { useTheme } from "./ThemeProvider";
 
 const HeroSection = () => {
+  const { theme, mounted } = useTheme();
+  const isDark = mounted && theme === "dark";
+
   return (
-    <section className="lg:py-8 mt-8">
-      <div className="grid grid-cols-1 items-center sm:grid-cols-12">
+    <section id="home" className="relative min-h-screen flex items-center pt-20">
+      <div className={`absolute inset-0 ${isDark ? 'bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950' : 'bg-gradient-to-br from-slate-50 via-white to-slate-100'}`} />
+      
+      <div className="relative container mx-auto px-6 flex flex-col lg:flex-row items-center">
         <motion.div
-          initial={{ opacity: 0, scale: 0.5 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5 }}
-          className="col-span-8 place-self-center text-center sm:text-left justify-self-start"
+          initial={{ x: -50, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ duration: 0.6 }}
+          className="flex-1 lg:pr-12 mb-10 lg:mb-0 text-center lg:text-left"
         >
-          <h1 className="text-white mb-4 mt-6 text-4xl sm:text-5xl lg:text-8xl lg:leading-normal font-extrabold">
-            <span className="text-transparent bg-clip-text text-2xl sm:text-3xl lg:text-5xl bg-gradient-to-r from-primary-400 to-secondary-600">
-              Welcome to my portifolio, 
-              I&apos;m{" "}
-            </span>
-            <br></br>
-            <TypeAnimation
-              sequence={[
-                "Alinafe Kamwendo",
-                1500,
-                "Full Stack Web Developer",
-                1500,
-                "Mobile Developer",
-                1500,
-                 "Computer Science Instructor",
-                1500,
-                "Associate Network Engineer",
-                1500,
-                "Cybersecurity Enthusiast",
-                1500,
-              ]}
-              wrapper="span"
-              speed={25}
-              repeat={Infinity}
-            />
+          <motion.p 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.2 }}
+            className={`text-sm font-medium mb-4 ${isDark ? 'text-indigo-400' : 'text-indigo-600'}`}
+          >
+            Hello, I'm Alinafe Kamwendo
+          </motion.p>
+          <h1 className={`mb-6 text-4xl md:text-5xl lg:text-6xl font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>
+            Building Exceptional
+            <br />
+            <span className={isDark ? 'text-indigo-400' : 'text-indigo-600'}>Digital Experiences</span>
           </h1>
-          <p className="text-[#ADB7BE] text-base sm:text-lg mb-6 lg:text-xl">
-            Ready to learn, Ready to build.
+          <p className={`mb-8 text-lg ${isDark ? 'text-slate-400' : 'text-slate-600'} max-w-xl`}>
+            Full-stack developer crafting scalable web and mobile solutions that drive business growth and user engagement.
           </p>
-          <div>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
             <Link
-              href="/#contact"
-              className="px-1 inline-block py-1 w-full sm:w-fit rounded-full bg-gradient-to-br from-primary-500 to-secondary-500 hover:bg-slate-800 text-white mt-3"
+              href="/#projects"
+              className="px-8 py-3 font-medium rounded-lg transition-all duration-300 transform hover:-translate-y-1 shadow-lg bg-indigo-600 text-white hover:bg-indigo-700"
             >
-              <span className="block hover:bg-slate-800 rounded-full px-5 py-2">
-  Hire Me
-              </span>
-            
+              View My Work
             </Link>
             <Link
-             href="/cv/Alinafe_Kamwendo_CV.pdf"
-  download="Alinafe_Kamwendo_CV.pdf"
-  target="_blank"
-  rel="noopener noreferrer"
-              className="px-1 lg:ml-4 inline-block py-1 w-full sm:w-fit rounded-full bg-gradient-to-br from-primary-500 to-secondary-500 hover:bg-slate-800 text-white mt-3"
+              href="/cv/Alinafe_Kamwendo_CV.pdf"
+              download="Alinafe_Kamwendo_CV.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`px-8 py-3 border font-medium rounded-lg transition-all duration-300 transform hover:-translate-y-1
+                ${isDark ? 'border-slate-600 text-slate-300 hover:border-indigo-400 hover:text-indigo-400' : 'border-slate-300 text-slate-700 hover:border-indigo-600 hover:text-indigo-600'}`}
             >
-              <span className="block bg-[#121212] hover:bg-slate-800 rounded-full px-5 py-2">
-                Download CV
-              </span>
+              Download CV
             </Link>
           </div>
         </motion.div>
+        
         <motion.div
-          initial={{ opacity: 0, scale: 0.5 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5 }}
-          className="col-span-4 place-self-center mt-4 lg:mt-0"
+          initial={{ x: 50, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="flex-1 hidden lg:block"
         >
-          <div className=" relative">
-            <Image
-              src="/images/alinafe-image.png"
-              alt="alinafe kamwendo"
-              className="rounded-full p-2 border-2 "
-              width={400}
-              height={400}
-
-            />
+          <div className="relative ">
+            <div className={`relative w-72 h-72 rounded-full mx-auto bg-red-600 overflow-hidden shadow-2xl 
+              ${isDark ? 'border-4 border-slate-800' : 'border-4 border-slate-200'}`}>
+              <Image
+                src="/images/alinafe-image.png"
+                alt="Alinafe Kamwendo"
+                fill
+                className="object-cover"
+                priority
+              />
+            </div>
+            <div className={`absolute -top-4 -right-4 w-24 h-24 rounded-full opacity-20 ${isDark ? 'bg-indigo-500' : 'bg-indigo-400'}`} />
+            <div className={`absolute -bottom-4 -left-4 w-16 h-16 rounded-full opacity-20 ${isDark ? 'bg-blue-500' : 'bg-blue-400'}`} />
           </div>
         </motion.div>
       </div>

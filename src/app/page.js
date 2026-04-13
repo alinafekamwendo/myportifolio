@@ -6,18 +6,17 @@ import EmailSection from "../components/EmailSection";
 import Footer from "../components/Footer";
 import AchievementsSection from "../components/AchievementsSection";
 
+export const dynamic = 'force-dynamic';
+
 export default function Home() {
   return (
-    <main className="flex min-h-screen  items-center flex-col bg-[#121212]">
-      <Navbar
-      />
-     <div className="container  px-12 py-4">
-        <HeroSection />
-        <AchievementsSection />
-        <AboutSection />
-        <ProjectsSection />
-        <EmailSection />
-      </div>
+    <main className="min-h-screen">
+      <Navbar />
+      <HeroSection />
+      <AchievementsSection />
+      <ProjectsSection />
+      <AboutSection />
+      <EmailSection />
       <Footer />
     </main>
   );
