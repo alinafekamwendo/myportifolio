@@ -6,17 +6,17 @@ import ScrollReveal from "./ScrollReveal";
 
 const skillCategories = {
   "Frontend": ["React", "Next.js", "TypeScript", "Tailwind CSS", "HTML5/CSS3"],
-  "Backend": ["Node.js", "Express", "PostgreSQL", "MongoDB", "REST APIs"],
-  "Mobile": ["Flutter", "Dart", "Firebase", "Android", "iOS"],
-  "Tools": ["Git", "AWS", "Docker", "Linux", "Cybersecurity"],
+  "Backend": ["Node.js", "Express","Nestjs",  "PostgreSQL", "MongoDB", "REST APIs","Redis", "Prisma ORM"],
+  "Mobile": ["Flutter", "Dart", "Firebase", "Android", "React Native", "iOS"],
+  "Tools": ["Git", "AWS", "Docker", "Linux", "CI/CD", "Jest", "Postman"],
 };
 
 const experienceData = [
   { role: "Software Developer", company: "Hasteal System Malawi", period: "2023 - Present" },
-  { role: "Systems Analyst", company: "Dedza District Council", period: "2021 - 2023" },
-  { role: "Data Officer", company: "Ministry of Health", period: "2019 - 2021" },
-  { role: "Computer Science Instructor", company: "Ministry of Education", period: "2017 - 2019" },
-  { role: "Google Developers Mentor", company: "Andela Learning Community", period: "2019 - 2020" },
+  { role: "Systems Analyst", company: "Dedza District Council", period: "2022 - 2023" },
+  { role: "Data Officer", company: "Ministry of Health", period: "2023 - 2024" },
+  { role: "Computer Science Instructor", company: "Ministry of Education", period: "2024 - Present" },
+  { role: "Google Developers Mentor", company: "Andela Learning Community", period: "2020 - 2021" },
 ];
 
 const educationData = [

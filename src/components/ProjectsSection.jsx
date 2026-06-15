@@ -58,7 +58,7 @@ const projectsData = [
     techStack: ["Next.js", "Node.js", "PostgreSQL", "Nestjs","Tailwind CSS","Prisma ORM"],
     gitUrl: "https://github.com/alinafekamwendo",
     previewUrl: "https://mangadigital.vercel.app/login",
-    metrics: { users: "15+", drivers: "50+" }
+    metrics: { companies: "3+", sites: "10+" }
   },
 ];
 
