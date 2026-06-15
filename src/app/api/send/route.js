@@ -1,53 +1,58 @@
 import { NextResponse } from "next/server";
-import { Resend } from "resend";
 import axios from "axios";
-
-const resend = new Resend(process.env.RESEND_API_KEY);
 
 const brevoApiKey = process.env.NEXT_BREVO_API_KEY;
 const fromEmail = process.env.NEXT_EMAIL_FROM;
-const fromName = "Alinafe Kamawendo Portifolio";
+const fromName = "Alinafe Kamwendo Portfolio";
 const apiBaseUrl = "https://api.brevo.com/v3/smtp/email";
- 
-export async function POST(req, res) {
-  const { email, subject, message, fullName } = await req.json();
-  console.log(email, subject, message);
 
-  const payload = {
-    sender: {
-      name: fromName,
-      email: fromEmail,
-    },
-    to: [
-      {
-        email: fromEmail,
-        name: fromName,
-      },
-      {
-        email: email,
-        name: fullName,
-      },
-    ],
-    replyTo: {
-      email: email,
-      name: `${fullName}`,
-    },
-    subject: `${subject}-Portifolio`,
-    htmlContent: `<div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-          <h1>${subject}</h1>
-          <p>Thank you for contacting us!</p>
-          <p>New message submitted:</p>
-          <p>${message}</p>
-        </div>
-        
-      `,
-    tags: ["portifolio", fromName],
-  };
-  
+export async function POST(req) {
   try {
-    console.log("attempting to send email t0:", fromEmail, email);
+    const { email, subject, message, fullName } = await req.json();
 
-    const response = await axios.post(apiBaseUrl, payload, {
+    if (!email || !subject || !message || !fullName) {
+      return NextResponse.json(
+        { error: "All fields are required" },
+        { status: 400 }
+      );
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return NextResponse.json(
+        { error: "Invalid email address" },
+        { status: 400 }
+      );
+    }
+
+    const escapeHtml = (str) =>
+      str.replace(/[&<>"']/g, (c) =>
+        ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c])
+      );
+
+    const safeSubject = escapeHtml(subject);
+    const safeMessage = escapeHtml(message);
+    const safeName = escapeHtml(fullName);
+
+    const payload = {
+      sender: { name: fromName, email: fromEmail },
+      to: [
+        { email: fromEmail, name: fromName },
+        { email, name: safeName },
+      ],
+      replyTo: { email, name: safeName },
+      subject: `${safeSubject} - Portfolio`,
+      htmlContent: `<div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+        <h1>${safeSubject}</h1>
+        <p>Thank you for contacting us!</p>
+        <p><strong>From:</strong> ${safeName} (${email})</p>
+        <p><strong>Message:</strong></p>
+        <p>${safeMessage}</p>
+      </div>`,
+      tags: ["portfolio", fromName],
+    };
+
+    await axios.post(apiBaseUrl, payload, {
       headers: {
         "api-key": brevoApiKey,
         "Content-Type": "application/json",
@@ -55,9 +60,11 @@ export async function POST(req, res) {
       timeout: 30000,
     });
 
-  
-    return NextResponse.json(response);
+    return NextResponse.json({ success: true });
   } catch (error) {
-    return NextResponse.json({ error });
+    return NextResponse.json(
+      { error: "Failed to send message. Please try again later." },
+      { status: 500 }
+    );
   }
 }

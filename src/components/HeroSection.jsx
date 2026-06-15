@@ -3,16 +3,10 @@ import React from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { useTheme } from "./ThemeProvider";
 
 const HeroSection = () => {
-  const { theme, mounted } = useTheme();
-  const isDark = mounted && theme === "dark";
-
   return (
     <section id="home" className="relative min-h-screen flex items-center pt-20">
-      <div className={`absolute inset-0 ${isDark ? 'bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950' : 'bg-gradient-to-br from-slate-50 via-white to-slate-100'}`} />
-      
       <div className="relative container mx-auto px-6 flex flex-col lg:flex-row items-center">
         <motion.div
           initial={{ x: -50, opacity: 0 }}
@@ -24,36 +18,49 @@ const HeroSection = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
-            className={`text-sm font-medium mb-4 ${isDark ? 'text-indigo-400' : 'text-indigo-600'}`}
+            className="text-sm font-medium mb-4 text-indigo-400"
           >
-            Hello, I'm Alinafe Kamwendo
+            Hello, I&apos;m Alinafe Kamwendo
           </motion.p>
-          <h1 className={`mb-6 text-4xl md:text-5xl lg:text-6xl font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>
+          <h1 className="mb-6 text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 dark:text-white">
             Building Exceptional
             <br />
-            <span className={isDark ? 'text-indigo-400' : 'text-indigo-600'}>Digital Experiences</span>
+            <span className="text-indigo-600 dark:text-indigo-400">Digital Experiences</span>
           </h1>
-          <p className={`mb-8 text-lg ${isDark ? 'text-slate-400' : 'text-slate-600'} max-w-xl`}>
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.35, duration: 0.5 }}
+            className="mb-8 text-lg text-slate-600 dark:text-slate-400 max-w-xl"
+          >
             Full-stack developer crafting scalable web and mobile solutions that drive business growth and user engagement.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-            <Link
-              href="/#projects"
-              className="px-8 py-3 font-medium rounded-lg transition-all duration-300 transform hover:-translate-y-1 shadow-lg bg-indigo-600 text-white hover:bg-indigo-700"
-            >
-              View My Work
-            </Link>
-            <Link
-              href="/cv/Alinafe_Kamwendo_CV.pdf"
-              download="Alinafe_Kamwendo_CV.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`px-8 py-3 border font-medium rounded-lg transition-all duration-300 transform hover:-translate-y-1
-                ${isDark ? 'border-slate-600 text-slate-300 hover:border-indigo-400 hover:text-indigo-400' : 'border-slate-300 text-slate-700 hover:border-indigo-600 hover:text-indigo-600'}`}
-            >
-              Download CV
-            </Link>
-          </div>
+          </motion.p>
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5, duration: 0.5 }}
+            className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
+          >
+            <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }}>
+              <Link
+                href="/#projects"
+                className="btn-primary ripple-btn"
+              >
+                View My Work
+              </Link>
+            </motion.div>
+            <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }}>
+              <Link
+                href="/cv/Alinafe_Kamwendo_CV.pdf"
+                download="Alinafe_Kamwendo_CV.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-outline border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 hover:border-indigo-500 hover:text-indigo-500"
+              >
+                Download CV
+              </Link>
+            </motion.div>
+          </motion.div>
         </motion.div>
         
         <motion.div
@@ -62,20 +69,34 @@ const HeroSection = () => {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="flex-1 hidden lg:block"
         >
-          <div className="relative ">
-            <div className={`relative w-72 h-72 rounded-full mx-auto bg-red-600 overflow-hidden shadow-2xl 
-              ${isDark ? 'border-4 border-slate-800' : 'border-4 border-slate-200'}`}>
+          <motion.div
+            animate={{ y: [0, -8, 0] }}
+            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+            className="relative"
+          >
+            <div className="relative w-72 h-72 rounded-full mx-auto overflow-hidden shadow-2xl border-4 border-slate-200 dark:border-slate-800">
               <Image
                 src="/images/alinafe-image.png"
                 alt="Alinafe Kamwendo"
                 fill
+                sizes="288px"
                 className="object-cover"
                 priority
+                placeholder="blur"
+                blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjg4IiBoZWlnaHQ9IjI4OCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCBmaWxsPSIjNjM2NkYxIiB3aWR0aD0iMjg4IiBoZWlnaHQ9IjI4OCIgcng9IjE0NCIvPjwvc3ZnPg=="
               />
             </div>
-            <div className={`absolute -top-4 -right-4 w-24 h-24 rounded-full opacity-20 ${isDark ? 'bg-indigo-500' : 'bg-indigo-400'}`} />
-            <div className={`absolute -bottom-4 -left-4 w-16 h-16 rounded-full opacity-20 ${isDark ? 'bg-blue-500' : 'bg-blue-400'}`} />
-          </div>
+            <motion.div
+              animate={{ scale: [1, 1.15, 1], opacity: [0.2, 0.3, 0.2] }}
+              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute -top-4 -right-4 w-24 h-24 rounded-full bg-indigo-500 dark:bg-indigo-400"
+            />
+            <motion.div
+              animate={{ scale: [1, 1.15, 1], opacity: [0.2, 0.3, 0.2] }}
+              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: -2 }}
+              className="absolute -bottom-4 -left-4 w-16 h-16 rounded-full bg-blue-500 dark:bg-blue-400"
+            />
+          </motion.div>
         </motion.div>
       </div>
     </section>

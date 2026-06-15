@@ -1,64 +1,68 @@
+"use client";
 import React from "react";
 import { CodeBracketIcon, EyeIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
-import { useTheme } from "./ThemeProvider";
+import Image from "next/image";
+import { motion } from "framer-motion";
 
 const ProjectCard = ({ project, showMetrics = false }) => {
-  const { theme, mounted } = useTheme();
-  const isDark = mounted && theme === "dark";
-  
   const { title, description, image, gitUrl, previewUrl, metrics, tags, techStack } = project;
   
   return (
-    <div className={`rounded-2xl overflow-hidden transition-all duration-500 hover:-translate-y-2
-      ${isDark 
-        ? 'bg-slate-900/50 border border-slate-800/50 hover:border-indigo-500/50' 
-        : 'bg-white border border-slate-200 shadow-lg hover:shadow-xl'}`}>
-      {/* Image Container */}
-      <div className="relative h-56 md:h-64 group">
-        <img 
+    <div className="rounded-2xl overflow-hidden transition-all duration-500 card-hover cursor-pointer glass dark:glass border-slate-200 dark:border-slate-800/50 hover:border-indigo-500/50">
+      <div className="relative h-56 md:h-64 group overflow-hidden">
+        <Image 
           src={image} 
           alt={title} 
-          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          className="object-cover transition-transform duration-700 group-hover:scale-110"
+          loading="lazy"
+          placeholder="blur"
+          blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQwIiBoZWlnaHQ9IjQwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCBmaWxsPSIjMWUyOTNiIiB3aWR0aD0iNjQwIiBoZWlnaHQ9IjQwMCIvPjwvc3ZnPg=="
         />
-        <div className={`absolute inset-0 flex items-end p-4 transition-opacity duration-300
-          ${isDark ? 'bg-black/40' : 'bg-black/20'}`}>
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileHover={{ opacity: 1 }}
+          transition={{ duration: 0.25 }}
+          className="absolute inset-0 flex items-end p-4 bg-gradient-to-t from-white/90 dark:from-slate-950/90 to-transparent"
+        >
           <div className="w-full flex justify-between">
-            <Link
-              href={gitUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`flex items-center justify-center px-4 py-2 rounded-lg transition-all duration-300
-                ${isDark ? 'bg-white/20 text-slate-200 hover:bg-white/30 hover:text-white' : 'bg-white/80 text-slate-700 hover:bg-white hover:text-slate-900'}`}
-            >
-              <CodeBracketIcon className="h-5 w-5 mr-2" />
-              <span>Source</span>
-            </Link>
-            {previewUrl && previewUrl !== "#" && (
+            <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }}>
               <Link
-                href={previewUrl}
+                href={gitUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`flex items-center justify-center px-4 py-2 rounded-lg transition-all duration-300
-                  ${isDark ? 'bg-white/20 text-slate-200 hover:bg-white/30 hover:text-white' : 'bg-white/80 text-slate-700 hover:bg-white hover:text-slate-900'}`}
+                className="flex items-center justify-center px-4 py-2 rounded-lg transition-all duration-300 backdrop-blur-sm glass text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white"
               >
-                <EyeIcon className="h-5 w-5 mr-2" />
-                <span>Live</span>
+                <CodeBracketIcon className="h-5 w-5 mr-2" />
+                <span>Source</span>
               </Link>
+            </motion.div>
+            {previewUrl && previewUrl !== "#" && (
+              <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }}>
+                <Link
+                  href={previewUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center px-4 py-2 rounded-lg transition-all duration-300 backdrop-blur-sm glass text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white"
+                >
+                  <EyeIcon className="h-5 w-5 mr-2" />
+                  <span>Live</span>
+                </Link>
+              </motion.div>
             )}
           </div>
-        </div>
+        </motion.div>
       </div>
       
-      {/* Content */}
       <div className="p-6">
-        <h3 className={`text-xl font-bold mb-3 ${isDark ? 'text-white' : 'text-slate-900'}`}>{title}</h3>
-        <p className={`mb-4 line-clamp-2 ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>{description}</p>
+        <h3 className="text-xl font-bold mb-3 text-slate-900 dark:text-white">{title}</h3>
+        <p className="mb-4 line-clamp-2 text-slate-600 dark:text-slate-300">{description}</p>
         
         <div className="flex flex-wrap gap-2 mb-3">
           {tags.map((tag, index) => (
-            <span key={index} className={`px-3 py-1 text-xs font-medium rounded-full
-              ${isDark ? 'bg-slate-800/50 text-slate-300' : 'bg-slate-100 text-slate-600'}`}>
+            <span key={index} className="px-3 py-1 text-xs font-medium rounded-full glass text-slate-600 dark:text-slate-300">
               {tag}
             </span>
           ))}
@@ -66,21 +70,24 @@ const ProjectCard = ({ project, showMetrics = false }) => {
         
         <div className="flex flex-wrap gap-2">
           {techStack.map((tech, index) => (
-            <span key={index} className={`px-2 py-0.5 text-xs font-medium rounded
-              ${isDark ? 'bg-indigo-600/20 text-indigo-300' : 'bg-indigo-50 text-indigo-600'}`}>
+            <motion.span
+              key={index}
+              whileHover={{ scale: 1.08, y: -1 }}
+              className="px-2 py-0.5 text-xs font-medium rounded cursor-default bg-indigo-50 dark:bg-indigo-600/20 text-indigo-600 dark:text-indigo-300"
+            >
               {tech}
-            </span>
+            </motion.span>
           ))}
         </div>
         
         {showMetrics && metrics && (
-          <div className={`grid grid-cols-2 gap-4 mt-4 pt-4 border-t ${isDark ? 'border-slate-800/50' : 'border-slate-200'}`}>
+          <div className="grid grid-cols-2 gap-4 mt-4 pt-4 border-t border-slate-200 dark:border-slate-800/50">
             {Object.entries(metrics).slice(0, 2).map(([key, value]) => (
               <div key={key} className="text-center">
-                <p className={`text-xs ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                <p className="text-xs text-slate-500 dark:text-slate-400">
                   {key.charAt(0).toUpperCase() + key.slice(1)}
                 </p>
-                <p className={`font-semibold ${isDark ? 'text-white' : 'text-slate-900'}`}>{value}</p>
+                <p className="font-semibold text-slate-900 dark:text-white">{value}</p>
               </div>
             ))}
           </div>

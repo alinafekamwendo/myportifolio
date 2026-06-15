@@ -1,7 +1,11 @@
 "use client";
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React, { createContext, useContext, useState, useEffect, useCallback } from "react";
 
-const ThemeContext = createContext({ theme: "dark", toggleTheme: () => {} });
+const ThemeContext = createContext({
+  theme: "dark",
+  toggleTheme: () => {},
+  mounted: false,
+});
 
 export const ThemeProvider = ({ children }) => {
   const [theme, setTheme] = useState("dark");
@@ -9,19 +13,25 @@ export const ThemeProvider = ({ children }) => {
 
   useEffect(() => {
     setMounted(true);
-    const savedTheme = localStorage.getItem("portfolio-theme") || "dark";
-    setTheme(savedTheme);
+    const saved = localStorage.getItem("portfolio-theme");
+    if (saved) {
+      setTheme(saved);
+    } else {
+      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      setTheme(prefersDark ? "dark" : "light");
+    }
   }, []);
 
   useEffect(() => {
-    if (mounted) {
-      localStorage.setItem("portfolio-theme", theme);
-      document.documentElement.classList.remove("light", "dark");
-      document.documentElement.classList.add(theme);
-    }
+    if (!mounted) return;
+    localStorage.setItem("portfolio-theme", theme);
+    document.documentElement.classList.remove("light", "dark");
+    document.documentElement.classList.add(theme);
   }, [theme, mounted]);
 
-  const toggleTheme = () => setTheme((prev) => (prev === "dark" ? "light" : "dark"));
+  const toggleTheme = useCallback(() => {
+    setTheme((prev) => (prev === "dark" ? "light" : "dark"));
+  }, []);
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme, mounted }}>
