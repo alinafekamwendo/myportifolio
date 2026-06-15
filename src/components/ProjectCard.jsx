@@ -9,7 +9,7 @@ const ProjectCard = ({ project, showMetrics = false }) => {
   const { title, description, image, gitUrl, previewUrl, metrics, tags, techStack } = project;
   
   return (
-    <div className="rounded-2xl overflow-hidden transition-all duration-500 card-hover cursor-pointer glass dark:glass border-slate-200 dark:border-slate-800/50 hover:border-indigo-500/50">
+    <div className="rounded-2xl overflow-hidden transition-all duration-500 card-hover cursor-pointer glass border border-slate-200 dark:border-slate-800/50 hover:border-indigo-500/50">
       <div className="relative h-56 md:h-64 group overflow-hidden">
         <Image 
           src={image} 

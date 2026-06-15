@@ -25,10 +25,12 @@ const fadeUp = {
 const EmailSection = ({ standalone = false }) => {
   const [emailSubmitted, setEmailSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
+    setError(null);
     
     const data = {
       email: e.target.email.value,
@@ -48,9 +50,14 @@ const EmailSection = ({ standalone = false }) => {
 
     try {
       const response = await fetch(endpoint, options);
-      if (response.status === 200) setEmailSubmitted(true);
-    } catch (error) {
-      console.error("Error:", error);
+      const result = await response.json();
+      if (response.ok) {
+        setEmailSubmitted(true);
+      } else {
+        setError(result.error || "Something went wrong. Please try again.");
+      }
+    } catch {
+      setError("Network error. Please check your connection and try again.");
     } finally {
       setIsLoading(false);
     }
@@ -260,6 +267,16 @@ const EmailSection = ({ standalone = false }) => {
                       placeholder="Tell me about your project..."
                     />
                   </motion.div>
+
+                  {error && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="p-3 rounded-lg bg-red-50 dark:bg-red-500/10 border border-red-200 dark:border-red-500/30 text-red-600 dark:text-red-400 text-sm"
+                    >
+                      {error}
+                    </motion.div>
+                  )}
 
                   <motion.button
                     type="submit"

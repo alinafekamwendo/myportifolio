@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-import axios from "axios";
 
 const brevoApiKey = process.env.NEXT_BREVO_API_KEY;
 const fromEmail = process.env.NEXT_EMAIL_FROM;
@@ -52,13 +51,21 @@ export async function POST(req) {
       tags: ["portfolio", fromName],
     };
 
-    await axios.post(apiBaseUrl, payload, {
+    const res = await fetch(apiBaseUrl, {
+      method: "POST",
       headers: {
         "api-key": brevoApiKey,
         "Content-Type": "application/json",
       },
-      timeout: 30000,
+      body: JSON.stringify(payload),
     });
+
+    if (!res.ok) {
+      return NextResponse.json(
+        { error: "Failed to send message. Please try again later." },
+        { status: 500 }
+      );
+    }
 
     return NextResponse.json({ success: true });
   } catch (error) {

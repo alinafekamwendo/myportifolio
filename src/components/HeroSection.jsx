@@ -67,7 +67,7 @@ const HeroSection = () => {
           initial={{ x: 50, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="flex-1 hidden lg:block"
+          className="flex-1 hidden md:block"
         >
           <motion.div
             animate={{ y: [0, -8, 0] }}

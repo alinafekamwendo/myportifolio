@@ -23,7 +23,7 @@ export default function AboutPage() {
             <span className="w-1 h-1 rounded-full bg-indigo-400" />
             <span>Malawi</span>
             <span className="w-1 h-1 rounded-full bg-indigo-400" />
-            <span>5+ Years Experience</span>
+            <span>7+ Years Experience</span>
           </div>
         </div>
       </div>
